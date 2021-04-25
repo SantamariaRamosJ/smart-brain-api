@@ -1,6 +1,19 @@
 const express = require('express');
 const bcrypt = require('bcrypt-nodejs');
 const cors = require('cors');
+const knex = require('knex'); 
+
+const db = knex({
+    client: 'pg',
+    connection: {
+      host : 'localhost',
+      port: 5432,
+      user : 'postgres',
+      password : 'test',
+      database : 'smartbrain'
+    }
+  });
+
 
 const app = express();
 
@@ -13,6 +26,8 @@ app.use(cors());
 app.get('/', (req, res) => {
     res.send('this is working');
 });
+
+   
 
 
 const database = {
@@ -45,12 +60,12 @@ const database = {
 
 
 app.post('/signin', (req, res) => {
-    // bcrypt.compare("apples", '$2a$10$iU/H2jj/LdoKsfjmQxufx.lSQuEsom6SqpIF.h2fwX10SVOyH8fX2', function(err, res) {
-    //     console.log('first guess', res)
-    // });
-    // bcrypt.compare("veggies",'$2a$10$iU/H2jj/LdoKsfjmQxufx.lSQuEsom6SqpIF.h2fwX10SVOyH8fX2', function(err, res) {
-    //     console.log('second guess', res)
-    // });
+    bcrypt.compare("apples", '$2a$10$iU/H2jj/LdoKsfjmQxufx.lSQuEsom6SqpIF.h2fwX10SVOyH8fX2', function(err, res) {
+        // console.log('first guess', res)
+    });
+    bcrypt.compare("veggies",'$2a$10$iU/H2jj/LdoKsfjmQxufx.lSQuEsom6SqpIF.h2fwX10SVOyH8fX2', function(err, res) {
+        // console.log('second guess', res)
+    });
     if (req.body.email === database.users[0].email && 
         req.body.password === database.users[0].password)
     {
@@ -74,18 +89,16 @@ app.post('/signin', (req, res) => {
 
 app.post('/register', (req, res) => {
     const { email, name, password } = req.body;
-    bcrypt.hash(password, null, null, function(err, hash) {
-        console.log(hash);
-    });
+    // bcrypt.hash(password, null, null, function(err, hash) {
+    //     console.log(hash);
+    // });
+   db('users').insert({
+       email: email,
+       name: name,
+       joined: new Date()
 
-    database.users.push({
-        id: '125',
-        name: name,
-        email: email,
-        password: password,
-        entries: 0,
-        joined: new Date()
-    })
+   }).then(console.log)
+
     res.json(database.users[database.users.length-1]);
 });
 
