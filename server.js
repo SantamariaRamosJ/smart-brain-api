@@ -39,17 +39,17 @@ app.get('/', (req, res) => {
 app.post('/signin', (req, res) => {signin.handleSignin(req, res, db, bcrypt)} );
 
 
-app.post('/signin', (req, res) => {
-    if (req.body.email === database.users[0].email &&
-        req.body.password === database.users[0].password)
-    {
-        res.json('success');
-    }
-    else
-    {
-        res.status(400).json('error loggin in');
-    }
-});
+// app.post('/signin', (req, res) => {
+//     if (req.body.email === database.users[0].email &&
+//         req.body.password === database.users[0].password)
+//     {
+//         res.json('success');
+//     }
+//     else
+//     {
+//         res.status(400).json('error loggin in');
+//     }
+// });
 
 
 app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})
