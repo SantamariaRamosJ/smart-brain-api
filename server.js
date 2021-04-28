@@ -12,11 +12,10 @@ const db = knex({
     client: 'pg',
     connection: {
       connectionString: process.env.DATABASE_URL,
-    //   port: 5432,
       ssl: {
-        rejectUnauthorized: false,
-      },
-    },
+        rejectUnauthorized: false
+      }
+    }
   });
 
   db.select('*').from('users').then(data => {
