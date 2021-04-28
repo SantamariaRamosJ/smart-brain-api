@@ -11,15 +11,11 @@ const image = require ('./controllers/image');
 const db = knex({
     client: 'pg',
     connection: {
-      connectionString: process.env.DATA,
+      connectionString: process.env.DATABASE_URL,
       ssl: {
-        rejectUnauthorized: false
+      rejectUnauthorized: false,
       },
-    //   port: 5432,
-      user : 'postgres',
-      password : 'test',
-      database : 'smartbrain'
-    }
+      },
   });
 
   db.select('*').from('users').then(data => {
