@@ -12,22 +12,24 @@ const image = require ('./controllers/image');
 
 const db = knex({
   client: 'pg',
-  // connection: {
+    connection: {
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false
+      },
+    },
+});
+
+ // connection: {
   //   connectionString: process.env.DATABASE_URL,	
   //   // ssl: true
   // }
-  connection: {
-    // host : 'ec2-3-211-37-117.compute-1.amazonaws.com',
+
+// host : 'ec2-3-211-37-117.compute-1.amazonaws.com',
     // user : 'hficxrpwahlqga',
     // password : '3723cc4566c2b8d34926dbcfedcb4421320b21d367d77c781c42c02862313f2c',
     // database : 'df77ng3f0p89g6',
     // port: '5432'
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false
-    }
-  }
-});
 
 
   // db.select('*').from('users').then(data => {
