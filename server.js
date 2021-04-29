@@ -8,7 +8,7 @@ const profile = require ('./controllers/profile');
 const image = require ('./controllers/image');
 
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
 const db = knex({
   client: 'pg',
@@ -17,11 +17,15 @@ const db = knex({
   //   // ssl: true
   // }
   connection: {
-    host : 'ec2-3-211-37-117.compute-1.amazonaws.com',
-    user : 'hficxrpwahlqga',
-    password : '3723cc4566c2b8d34926dbcfedcb4421320b21d367d77c781c42c02862313f2c',
-    database : 'df77ng3f0p89g6',
-    port: '5432'
+    // host : 'ec2-3-211-37-117.compute-1.amazonaws.com',
+    // user : 'hficxrpwahlqga',
+    // password : '3723cc4566c2b8d34926dbcfedcb4421320b21d367d77c781c42c02862313f2c',
+    // database : 'df77ng3f0p89g6',
+    // port: '5432'
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false
+    }
   }
 });
 
