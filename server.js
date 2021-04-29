@@ -10,17 +10,23 @@ const image = require ('./controllers/image');
 
 // process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0; 
 
-const db = knex({
-  client: 'pg',
-    connection: {
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        rejectUnauthorized: false
-      },
-    },
-});
+// const db = knex({
+//   client: 'pg',
+//     connection: {
+//       connectionString: process.env.DATABASE_URL,
+//       ssl: {
+//         rejectUnauthorized: false
+//       },
+//     },
+// });
 
-console.log(db);
+const db = knex({
+    client: 'pg',
+    connection: {
+        connectionString: process.env.DATABASE_URL,	
+        ssl: true
+	}
+});
 
  // connection: {
   //   connectionString: process.env.DATABASE_URL,	
